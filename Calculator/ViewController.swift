@@ -11,13 +11,26 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var displayLabel: UILabel!
-    var isFinishedTyping = true
-    
+    private var isFinishedTyping = true
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
         //What should happen when a non-number button is pressed
-    
+        isFinishedTyping = true
+        
+        guard let number = Double(displayLabel.text!) else { fatalError("Can't turn value into a Double!") }
+        
+        switch sender.currentTitle {
+        case "+/-":
+            displayLabel.text = String(number * -1)
+        case "AC":
+            displayLabel.text = "0"
+        case "%":
+            displayLabel.text = String(number/100)
+        default:
+            print("")
+        }
+        
     }
 
     
