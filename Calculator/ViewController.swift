@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var displayLabel: UILabel!
     private var isFinishedTyping = true
+    private var useDecimalPoint = false
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
@@ -43,6 +44,16 @@ class ViewController: UIViewController {
             displayLabel.text = numValue
             isFinishedTyping = false
         } else {
+            if numValue == "." {
+                guard let currentDisplayValue = Double(displayLabel.text!) else {
+                    fatalError("Can't convert display label text to a Double")
+                }
+                let isInt = floor(currentDisplayValue) == currentDisplayValue
+                
+                if !isInt {
+                    return
+                }
+            }
             displayLabel.text = displayLabel.text! + numValue
         }
         
